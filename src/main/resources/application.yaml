@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: 'FamilyTreeMain'
+  config:
+    import: classpath:db_postgres.yaml
