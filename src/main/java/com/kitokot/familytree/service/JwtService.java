@@ -3,30 +3,39 @@ package com.kitokot.familytree.service;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.security.Keys;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
 @Service
 public class JwtService {
 
-  private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-  private final long EXPIRATION_TIME = 1000 * 60 * 60;
+  @Value("${jwt.secret}")
+  private String secret;
+
+  @Value(("${jwt.expiration}"))
+  private long expiration;
+
+  private Key getKey() {
+    return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+  }
 
   public String generateToken(String username) {
     return Jwts.builder()
       .setSubject(username)
       .setIssuedAt(new Date())
-      .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-      .signWith(key)
+      .setExpiration(new Date(System.currentTimeMillis() + expiration))
+      .signWith(getKey())
       .compact();
   }
 
   public String extractUsername(String token) {
     return Jwts.parserBuilder()
-      .setSigningKey(key)
+      .setSigningKey(getKey())
       .build()
       .parseClaimsJws(token)
       .getBody()
@@ -35,7 +44,7 @@ public class JwtService {
 
   public boolean isTokenValid(String token) {
     try {
-      Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+      Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token);
       return true;
     } catch (JwtException e) {
       return false;

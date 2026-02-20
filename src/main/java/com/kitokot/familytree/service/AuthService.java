@@ -1,6 +1,6 @@
 package com.kitokot.familytree.service;
 
-import com.kitokot.familytree.domain.dao.UserRepository;
+import com.kitokot.familytree.domain.repository.UserRepository;
 import com.kitokot.familytree.domain.model.UserModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

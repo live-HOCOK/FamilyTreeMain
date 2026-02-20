@@ -3,3 +3,11 @@ spring:
     name: 'FamilyTreeMain'
   config:
     import: classpath:db_postgres.yaml
+
+jwt:
+  secret: "veryVeryVeryVeryVeryVerySecretKey123"
+  expiration: 86400000
+
+logging:
+  level:
+    com.kitokot.familytree: DEBUG
