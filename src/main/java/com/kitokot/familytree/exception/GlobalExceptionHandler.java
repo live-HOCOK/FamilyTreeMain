@@ -1,7 +1,7 @@
 package com.kitokot.familytree.exception;
 
 
-import com.kitokot.familytree.exception.user.CreateUserException;
+import com.kitokot.familytree.user.exception.CreateUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

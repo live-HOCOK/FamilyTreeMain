@@ -10,4 +10,7 @@ jwt:
 
 logging:
   level:
-    com.kitokot.familytree: DEBUG
+    root: WARN
+    com.kitokot.familytree: TRACE
+  pattern:
+    level: "%5p [%X{requestId}]"
