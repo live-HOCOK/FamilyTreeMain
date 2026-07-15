@@ -1,18 +1,24 @@
 package com.kitokot.familytree.user.mapper;
 
+import com.kitokot.familytree.role.service.RoleService;
 import com.kitokot.familytree.user.persistence.entity.UserEntity;
 import com.kitokot.familytree.user.web.dto.request.CreateUserRequestDto;
 import com.kitokot.familytree.user.web.dto.response.UserResponseDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class UserMapper {
 
-  public UserEntity toUserModel(CreateUserRequestDto createUserRequestDto) {
+  private final RoleService roleService;
+
+  public UserEntity toUserEntity(CreateUserRequestDto createUserRequestDto) {
     UserEntity userEntity = new UserEntity();
-    userEntity.setId(createUserRequestDto.getId());
     userEntity.setLogin(createUserRequestDto.getLogin());
     userEntity.setPassword(createUserRequestDto.getPassword());
+    userEntity.setRole(roleService.getDefaultRole());
+    userEntity.setIsActive(true);
     return userEntity;
   }
 

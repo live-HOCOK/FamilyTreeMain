@@ -1,5 +1,6 @@
 package com.kitokot.familytree.user.service;
 
+import com.kitokot.familytree.user.exception.InvalidCredentialsException;
 import com.kitokot.familytree.user.persistence.repository.UserRepository;
 import com.kitokot.familytree.user.persistence.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class AuthService {
     UserEntity user = userRepository.findByLogin(login);
 
     if (!password.equals(user.getPassword())) {
-      throw new RuntimeException("Invalid credentials");
+      throw new InvalidCredentialsException("Invalid credentials");
     }
 
     return jwtService.generateToken(user.getLogin());

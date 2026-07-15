@@ -1,11 +1,12 @@
 package com.kitokot.familytree.user.persistence.entity;
 
+import com.kitokot.familytree.role.persistence.entity.RoleEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "USERS",
@@ -23,5 +24,12 @@ public class UserEntity {
 
   @Column(name = "PASSWORD", nullable = false)
   String password;
+
+  @Column(name = "IS_ACTIVE", nullable = false)
+  Boolean isActive;
+
+  @JoinColumn(name = "ROLES", nullable = false)
+  @ManyToOne
+  RoleEntity role;
 
 }

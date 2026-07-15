@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
       checkProhibitedSymbols(createUserRequestDto.getPassword());
 
       log.trace("Saving user to database");
-      UserEntity userEntity = userRepository.save(userMapper.toUserModel(createUserRequestDto));
+      UserEntity userEntity = userRepository.save(userMapper.toUserEntity(createUserRequestDto));
       log.debug("User saved to database");
       return userMapper.toUserResponse(userEntity);
     } catch (DataIntegrityViolationException ex) {
@@ -42,9 +42,8 @@ public class UserServiceImpl implements UserService {
   }
 
   private void checkProhibitedSymbols(String line) throws CreateUserException {
-    log.trace("Check login/password on prohibited symbols");
     if (PROHIBITED_SYMBOLS.stream().anyMatch(line::contains)) {
-      log.debug("Has prohibited symbols on login/password>");
+      log.debug("Has prohibited symbols on login/password");
       throw new CreateUserException("Login and password must not contains symbols " + PROHIBITED_SYMBOLS);
     }
   }

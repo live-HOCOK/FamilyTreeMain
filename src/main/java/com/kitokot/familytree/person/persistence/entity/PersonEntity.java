@@ -1,4 +1,4 @@
-package com.kitokot.familytree.person.entity;
+package com.kitokot.familytree.person.persistence.entity;
 
 import com.kitokot.familytree.gender.persistence.entity.GenderEntity;
 import com.kitokot.familytree.user.persistence.entity.UserEntity;
@@ -7,7 +7,7 @@ import lombok.*;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "PERSONS")
@@ -18,7 +18,7 @@ public class PersonEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;
 
-  @JoinColumn(name = "SEX_ID")
+  @JoinColumn(name = "GENDER_ID")
   @ManyToOne
   GenderEntity genderId;
 

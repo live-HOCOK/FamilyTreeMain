@@ -2,6 +2,7 @@ package com.kitokot.familytree.exception;
 
 
 import com.kitokot.familytree.user.exception.CreateUserException;
+import com.kitokot.familytree.user.exception.InvalidCredentialsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -19,6 +20,13 @@ public class GlobalExceptionHandler {
   public ResponseEntity<?> handleDuplicate(CreateUserException ex) {
     return ResponseEntity
       .status(HttpStatus.CONFLICT)
+      .body(Map.of("message", ex.getMessage()));
+  }
+
+  @ExceptionHandler(InvalidCredentialsException.class)
+  public ResponseEntity<?> handleInvalidCredentials(InvalidCredentialsException ex) {
+    return ResponseEntity
+      .status(HttpStatus.UNAUTHORIZED)
       .body(Map.of("message", ex.getMessage()));
   }
 

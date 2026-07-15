@@ -3,6 +3,9 @@ spring:
     name: 'FamilyTreeMain'
   config:
     import: classpath:db_postgres.yaml
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
 
 jwt:
   secret: "veryVeryVeryVeryVeryVerySecretKey123"
